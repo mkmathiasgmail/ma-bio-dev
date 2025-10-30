@@ -262,7 +262,7 @@ const App = () => {
       {/* Pied de page */}
       <footer className="footer">
         <div className="container">
-          <p>&copy; {new Date().getFullYear()} Votre Nom. Tous droits réservés.</p>
+          <p>&copy; {new Date().getFullYear()} Idriss Elba Kapata. Tous droits réservés.</p>
           <div className="footer-links">
             <a href="#accueil">Accueil</a>
             <a href="#apropos">À propos</a>
