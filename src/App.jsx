@@ -25,21 +25,21 @@ const App = () => {
   const projects = [
     {
       id: 1,
-      title: 'Application E-commerce',
-      description: 'Une application e-commerce complète avec panier, authentification et paiement en ligne.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-      github: 'https://github.com/yourusername/ecommerce-app',
-      demo: 'https://ecommerce-demo.example.com'
+      title: 'Gestion des Résultats',
+      description: 'Application web pour la gestion et la publication des résultats académiques avec tableau de bord administratif et espace étudiant.',
+      technologies: ['Laravel', 'MySQL', 'Bootstrap', 'JavaScript'],
+      image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+      github: 'https://github.com/mkmathiasgmail/gestion-result',
+      demo: 'https://github.com/mkmathiasgmail/gestion-result'
     },
     {
       id: 2,
-      title: 'Réseau Social',
-      description: 'Un réseau social avec partage de publications, commentaires et notifications en temps réel.',
-      technologies: ['Vue.js', 'Express', 'PostgreSQL', 'Socket.io'],
-      image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80',
-      github: 'https://github.com/yourusername/social-network',
-      demo: 'https://social-network-demo.example.com'
+      title: 'Bonzenga App',
+      description: 'Site vitrine pour un salon de coiffure avec prise de rendez-vous en ligne et galerie des réalisations.',
+      technologies: ['HTML5', 'CSS3', 'JavaScript', 'jQuery'],
+      image: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80',
+      github: 'https://github.com/mkmathiasgmail/bonzenga-app',
+      demo: 'https://github.com/mkmathiasgmail/bonzenga-app'
     },
     {
       id: 3,
