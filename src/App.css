@@ -767,6 +767,113 @@ ul {
   transition: var(--transition);
 }
 
+/* Styles pour le formulaire de feedback */
+.feedback-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-form h2 {
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.feedback-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.feedback-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.feedback-form .rating-slider {
+  width: 100%;
+  height: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #e2e8f0;
+  border-radius: 4px;
+  outline: none;
+  margin: 1rem 0;
+}
+
+.feedback-form .rating-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.feedback-form .rating-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: var(--secondary-color);
+}
+
+.feedback-form .rating-labels {
+  display: flex;
+  justify-content: space-between;
+  color: var(--light-text);
+  font-size: 0.875rem;
+}
+
+.feedback-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--transition);
+  resize: vertical;
+  min-height: 100px;
+}
+
+.feedback-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.feedback-form .submit-btn {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.feedback-form .submit-btn:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.feedback-form .success-message {
+  padding: 1.5rem;
+  background-color: #dcfce7;
+  color: #166534;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 500;
+}
+
 .footer-links a:hover {
   color: white;
   text-decoration: underline;

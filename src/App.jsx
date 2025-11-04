@@ -2,11 +2,39 @@ import { useState } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaHtml5, FaJs, FaReact, FaNodeJs, FaDatabase, FaGitAlt } from 'react-icons/fa';
 import './App.css';
 import profileImage from './assets/449188700_1241909323445078_6589457566887089535_n.jpg';
+import FeedbackForm from './components/FeedbackForm';
 
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('accueil');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+    
+    // Vérifier si tous les champs sont remplis
+    const allFieldsFilled = Object.values({...formData, [name]: value}).every(field => field.trim() !== '');
+    setIsFormValid(allFieldsFilled);
+  };
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isFormValid) {
+      // Logique d'envoi du formulaire ici
+      console.log('Formulaire soumis:', formData);
+    }
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -227,34 +255,117 @@ const App = () => {
       </section>
 
       {/* Section Contact */}
-      <section id="contact" className="contact">
-        <div className="container">
-          <h2 className="section-title">Contactez-moi</h2>
-          <div className="contact-container">
-            <div className="contact-info">
-              <h3>Parlons de votre projet</h3>
-              <p>N'hésitez pas à me contacter pour discuter de votre projet ou pour toute question.</p>
-              <div className="contact-details">
-                <p><FaEnvelope /> elbamatondo12@gmail.com</p>
-                <p><FaLinkedin /> linkedin.com/in/votreprofil</p>
-                <p><FaGithub /> github.com/mkmathiasgmail</p>
+      <section id="contact" className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Contactez-moi</h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Formulaire de contact */}
+            <div className="bg-white p-8 rounded-lg shadow-md">
+              <h3 className="text-xl font-semibold mb-4 text-gray-800">Envoyez-moi un message</h3>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Votre nom"
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="Votre email"
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">Sujet</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    placeholder="Sujet de votre message"
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows="5"
+                    placeholder="Votre message..."
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  ></textarea>
+                </div>
+                
+                <button
+                  type="submit"
+                  disabled={!isFormValid}
+                  className={`w-full py-2 px-4 rounded-md text-white font-medium transition-colors ${
+                    isFormValid 
+                      ? 'bg-blue-600 hover:bg-blue-700' 
+                      : 'bg-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  Envoyer le message
+                </button>
+              </form>
+            </div>
+            
+            {/* Informations de contact et formulaire de feedback */}
+            <div className="space-y-8">
+              <div className="bg-white p-8 rounded-lg shadow-md">
+                <h3 className="text-xl font-semibold mb-4 text-gray-800">Coordonnées</h3>
+                <p className="text-gray-600 mb-6">N'hésitez pas à me contacter pour discuter de votre projet ou pour toute question.</p>
+                
+                <div className="space-y-3">
+                  <div className="flex items-center">
+                    <FaEnvelope className="text-blue-600 mr-3" />
+                    <span className="text-gray-700">elbamatondo12@gmail.com</span>
+                  </div>
+                  <div className="flex items-center">
+                    <FaLinkedin className="text-blue-600 mr-3" />
+                    <a href="https://linkedin.com/in/votreprofil" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-blue-600 transition-colors">
+                      linkedin.com/in/votreprofil
+                    </a>
+                  </div>
+                  <div className="flex items-center">
+                    <FaGithub className="text-gray-800 mr-3" />
+                    <a href="https://github.com/mkmathiasgmail" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-blue-600 transition-colors">
+                      github.com/mkmathiasgmail
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white p-8 rounded-lg shadow-md">
+                <h3 className="text-xl font-semibold mb-4 text-gray-800 text-center">Donnez-nous votre avis</h3>
+                <FeedbackForm />
               </div>
             </div>
-            <form className="contact-form">
-              <div className="form-group">
-                <input type="text" placeholder="Votre nom" required />
-              </div>
-              <div className="form-group">
-                <input type="email" placeholder="Votre email" required />
-              </div>
-              <div className="form-group">
-                <input type="text" placeholder="Sujet" required />
-              </div>
-              <div className="form-group">
-                <textarea placeholder="Votre message" rows="5" required></textarea>
-              </div>
-              <button type="submit" className="btn btn-primary">Envoyer le message</button>
-            </form>
           </div>
         </div>
       </section>
