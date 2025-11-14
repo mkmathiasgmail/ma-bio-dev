@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaHtml5, FaJs, FaReact, FaNodeJs, FaDatabase, FaGitAlt } from 'react-icons/fa';
 import './App.css';
 import profileImage from './assets/449188700_1241909323445078_6589457566887089535_n.jpg';
-
+import eyanoImage from './assets/eyano.png';
+import mergeConstructImage from './assets/merge.png';
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('accueil');
   const [formData, setFormData] = useState({
@@ -15,7 +17,18 @@ const App = () => {
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const [showContactOptions, setShowContactOptions] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [hasChosenChannel, setHasChosenChannel] = useState(false);
   const [preparedMessage, setPreparedMessage] = useState({ whatsapp: '', emailSubject: '', emailBody: '' });
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -56,6 +69,8 @@ const App = () => {
     });
 
     setShowContactOptions(true);
+    setHasChosenChannel(false);
+    setShowSuccessMessage(false);
 
     setFormData({
       name: '',
@@ -70,6 +85,7 @@ const App = () => {
     const whatsappNumber = '243822400635';
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${preparedMessage.whatsapp}`;
     globalThis.open(whatsappUrl, '_blank');
+    setHasChosenChannel(true);
   };
 
   const handleEmailClick = () => {
@@ -77,6 +93,15 @@ const App = () => {
     const body = encodeURIComponent(preparedMessage.emailBody);
     const mailtoUrl = `mailto:elbamatondo12@gmail.com?subject=${subject}&body=${body}`;
     globalThis.open(mailtoUrl, '_blank');
+    setHasChosenChannel(true);
+  };
+
+  const handleProjectClick = (project) => {
+    setSelectedProject(project);
+  };
+
+  const closeProjectModal = () => {
+    setSelectedProject(null);
   };
 
   const toggleMenu = () => {
@@ -129,6 +154,24 @@ const App = () => {
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1415&q=80',
       github: 'https://github.com/yourusername/task-manager',
       demo: 'https://task-manager-demo.example.com'
+    },
+    {
+      id: 5,
+      title: 'Eyano App',
+      description: "Application d'évaluations pour des concours, permettant de gérer les questions, les sessions d'examen et les résultats des candidats.",
+      technologies: ['Laravel', 'Blade', 'PHP', 'MySQL'],
+      image: eyanoImage,
+      github: 'https://github.com/yourusername/eyano-app',
+      demo: 'https://github.com/yourusername/eyano-app'
+    },
+    {
+      id: 6,
+      title: 'Merge Construct',
+      description: 'Application de gestion des stocks et des ventes de matériaux de construction avec suivi des clients, des commandes et des paiements.',
+      technologies: ['Laravel', 'PHP', 'MySQL', 'Bootstrap'],
+      image: mergeConstructImage,
+      github: 'https://github.com/yourusername/gestion-materiaux-construction',
+      demo: 'https://github.com/yourusername/gestion-materiaux-construction'
     }
   ];
 
@@ -172,12 +215,27 @@ const App = () => {
     }
   ];
 
+  if (isLoading) {
+    return (
+      <div
+        className="loading-screen"
+        role="status"
+        aria-label="Chargement du portfolio de Idriss Elba"
+      >
+        <div className="loading-initials">IE</div>
+      </div>
+    );
+  }
+
   return (
     <div className="app">
       {/* Navigation */}
       <nav className="navbar">
         <div className="container">
-          <div className="logo">Mon Portfolio</div>
+          <div className="logo">
+            <span className="logo-initials">I E</span>
+            <span className="logo-text">Idriss Elba</span>
+          </div>
           <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
             <a href="#accueil" onClick={() => scrollToSection('accueil')} className={activeSection === 'accueil' ? 'active' : ''}>Accueil</a>
             <a href="#apropos" onClick={() => scrollToSection('apropos')} className={activeSection === 'apropos' ? 'active' : ''}>À propos</a>
@@ -195,8 +253,9 @@ const App = () => {
       <section id="accueil" className="hero">
         <div className="container">
           <div className="hero-content">
-            <h1>Bonjour, je suis <span>Idriss elba kapata</span></h1>
-            <h2>Développeur Full Stack</h2>
+            <h1 className="hero-title">Bonjour, je suis <span>Idriss Elba Kapata</span></h1>
+
+            <h2 className="hero-subtitle">Développeur Web Full Stack</h2>
             <p>Je crée des expériences numériques exceptionnelles</p>
             <div className="cta-buttons">
               <a href="#projets" className="btn btn-primary">Voir mes projets</a>
@@ -232,12 +291,11 @@ const App = () => {
         <div className="container">
           <h2 className="section-title">Mes compétences</h2>
           <div className="skills-container">
-            {skills.map((skill, index) => (
+            {skills.map((skill) => (
               <div 
-                key={index} 
+                key={skill.name} 
                 className="skill-item"
                 data-aos="fade-up"
-                data-aos-delay={index * 100}
               >
                 <div className="skill-header">
                   <div className="skill-icon-container" style={{ color: skill.color }}>
@@ -270,24 +328,28 @@ const App = () => {
           <h2 className="section-title">Mes projets</h2>
           <div className="projects-grid">
             {projects.map((project) => (
-              <div key={project.id} className="project-card">
+              <div
+                key={project.id}
+                className="project-card"
+                role="button"
+                tabIndex={0}
+                onClick={() => handleProjectClick(project)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleProjectClick(project);
+                  }
+                }}
+              >
                 <div className="project-image">
                   <img src={project.image} alt={project.title} />
-                  <div className="project-links">
-                    <a href={project.github} target="_blank" rel="noopener noreferrer">
-                      <FaGithub /> Code
-                    </a>
-                    <a href={project.demo} target="_blank" rel="noopener noreferrer" className="demo-btn">
-                      Voir la démo
-                    </a>
-                  </div>
                 </div>
                 <div className="project-info">
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
                   <div className="project-tech">
-                    {project.technologies.map((tech, i) => (
-                      <span key={i}>{tech}</span>
+                    {project.technologies.map((tech) => (
+                      <span key={`${project.id}-${tech}`}>{tech}</span>
                     ))}
                   </div>
                 </div>
@@ -296,6 +358,29 @@ const App = () => {
           </div>
         </div>
       </section>
+
+      {/* Modal projet plein écran */}
+      {selectedProject && (
+        <div className="project-modal" onClick={closeProjectModal}>
+          <div className="project-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="project-modal-close" onClick={closeProjectModal}>
+              &times;
+            </button>
+            <div className="project-modal-image-wrapper">
+              <img src={selectedProject.image} alt={selectedProject.title} />
+            </div>
+            <div className="project-modal-info">
+              <h3>{selectedProject.title}</h3>
+              <p>{selectedProject.description}</p>
+              <div className="project-modal-tags">
+                {selectedProject.technologies.map((tech) => (
+                  <span key={`${selectedProject.id}-${tech}`}>{tech}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Section Contact */}
       <section id="contact" className="py-16 bg-gray-50">
@@ -318,8 +403,9 @@ const App = () => {
                       onChange={handleInputChange}
                       placeholder="Votre nom"
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
+
                   </div>
                   <div>
                     <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-700">Email</label>
@@ -331,8 +417,9 @@ const App = () => {
                       onChange={handleInputChange}
                       placeholder="Votre email"
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
+
                   </div>
                 </div>
                 
@@ -346,8 +433,9 @@ const App = () => {
                     onChange={handleInputChange}
                     placeholder="Sujet de votre message"
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
+
                 </div>
                 
                 <div>
@@ -360,8 +448,9 @@ const App = () => {
                     rows="5"
                     placeholder="Votre message..."
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   ></textarea>
+
                 </div>
                 
                 <button
@@ -375,7 +464,15 @@ const App = () => {
                 >
                   Envoyer le message
                 </button>
+                <p className="mt-2 text-sm text-gray-500">
+                  Tous les champs sont obligatoires afin que je puisse vous répondre.
+                </p>
               </form>
+              {showSuccessMessage && (
+                <p className="mt-4 text-sm font-medium text-green-600">
+                  Votre message a été préparé avec succès. Merci pour votre confiance !
+                </p>
+              )}
             </div>
             
             {/* Informations de contact */}
@@ -430,8 +527,17 @@ const App = () => {
             </div>
             <button
               type="button"
-              onClick={() => setShowContactOptions(false)}
-              className="w-full px-4 py-2 mt-4 text-sm font-medium text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200"
+              disabled={!hasChosenChannel}
+              onClick={() => {
+                if (!hasChosenChannel) return;
+                setShowContactOptions(false);
+                setShowSuccessMessage(true);
+              }}
+              className={`w-full px-4 py-2 mt-4 text-sm font-medium rounded-md transition-colors ${
+                hasChosenChannel
+                  ? 'text-gray-600 bg-gray-100 hover:bg-gray-200'
+                  : 'text-gray-400 bg-gray-100 cursor-not-allowed'
+              }`}
             >
               Fermer
             </button>
