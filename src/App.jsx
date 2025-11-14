@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaHtml5, FaJs, FaReact, FaNodeJs, FaDatabase, FaGitAlt } from 'react-icons/fa';
 import './App.css';
 import profileImage from './assets/449188700_1241909323445078_6589457566887089535_n.jpg';
-import FeedbackForm from './components/FeedbackForm';
 
 
 const App = () => {
@@ -15,6 +14,8 @@ const App = () => {
     message: ''
   });
   const [isFormValid, setIsFormValid] = useState(false);
+  const [showContactOptions, setShowContactOptions] = useState(false);
+  const [preparedMessage, setPreparedMessage] = useState({ whatsapp: '', emailSubject: '', emailBody: '' });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,10 +31,52 @@ const App = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isFormValid) {
-      // Logique d'envoi du formulaire ici
-      console.log('Formulaire soumis:', formData);
-    }
+    if (!isFormValid) return;
+
+    const { name, email, subject, message } = formData;
+
+    const whatsappText =
+      `Nouveau message depuis le portfolio:%0A%0A` +
+      `Nom: ${encodeURIComponent(name)}%0A` +
+      `Email: ${encodeURIComponent(email)}%0A` +
+      `Sujet: ${encodeURIComponent(subject)}%0A%0A` +
+      `Message: ${encodeURIComponent(message)}`;
+
+    const emailSubject = `[Portfolio] ${subject}`;
+    const emailBody =
+      `Nom: ${name}\n` +
+      `Email: ${email}\n` +
+      `Sujet: ${subject}\n\n` +
+      `Message:\n${message}`;
+
+    setPreparedMessage({
+      whatsapp: whatsappText,
+      emailSubject,
+      emailBody,
+    });
+
+    setShowContactOptions(true);
+
+    setFormData({
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
+    });
+    setIsFormValid(false);
+  };
+
+  const handleWhatsAppClick = () => {
+    const whatsappNumber = '243822400635';
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${preparedMessage.whatsapp}`;
+    globalThis.open(whatsappUrl, '_blank');
+  };
+
+  const handleEmailClick = () => {
+    const subject = encodeURIComponent(preparedMessage.emailSubject);
+    const body = encodeURIComponent(preparedMessage.emailBody);
+    const mailtoUrl = `mailto:elbamatondo12@gmail.com?subject=${subject}&body=${body}`;
+    globalThis.open(mailtoUrl, '_blank');
   };
 
   const toggleMenu = () => {
@@ -256,17 +299,17 @@ const App = () => {
 
       {/* Section Contact */}
       <section id="contact" className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Contactez-moi</h2>
+        <div className="container px-4 mx-auto">
+          <h2 className="mb-12 text-3xl font-bold text-center text-gray-800">Contactez-moi</h2>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          <div className="grid max-w-6xl grid-cols-1 gap-12 mx-auto lg:grid-cols-2">
             {/* Formulaire de contact */}
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-4 text-gray-800">Envoyez-moi un message</h3>
+            <div className="p-8 bg-white rounded-lg shadow-md">
+              <h3 className="mb-4 text-xl font-semibold text-gray-800">Envoyez-moi un message</h3>
               <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+                    <label htmlFor="name" className="block mb-1 text-sm font-medium text-gray-700">Nom</label>
                     <input
                       type="text"
                       id="name"
@@ -279,7 +322,7 @@ const App = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-700">Email</label>
                     <input
                       type="email"
                       id="email"
@@ -294,7 +337,7 @@ const App = () => {
                 </div>
                 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">Sujet</label>
+                  <label htmlFor="subject" className="block mb-1 text-sm font-medium text-gray-700">Sujet</label>
                   <input
                     type="text"
                     id="subject"
@@ -308,7 +351,7 @@ const App = () => {
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                  <label htmlFor="message" className="block mb-1 text-sm font-medium text-gray-700">Message</label>
                   <textarea
                     id="message"
                     name="message"
@@ -335,35 +378,28 @@ const App = () => {
               </form>
             </div>
             
-            {/* Informations de contact et formulaire de feedback */}
-            <div className="space-y-8">
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold mb-4 text-gray-800">Coordonnées</h3>
-                <p className="text-gray-600 mb-6">N'hésitez pas à me contacter pour discuter de votre projet ou pour toute question.</p>
-                
-                <div className="space-y-3">
-                  <div className="flex items-center">
-                    <FaEnvelope className="text-blue-600 mr-3" />
-                    <span className="text-gray-700">elbamatondo12@gmail.com</span>
-                  </div>
-                  <div className="flex items-center">
-                    <FaLinkedin className="text-blue-600 mr-3" />
-                    <a href="https://linkedin.com/in/votreprofil" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-blue-600 transition-colors">
-                      linkedin.com/in/votreprofil
-                    </a>
-                  </div>
-                  <div className="flex items-center">
-                    <FaGithub className="text-gray-800 mr-3" />
-                    <a href="https://github.com/mkmathiasgmail" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-blue-600 transition-colors">
-                      github.com/mkmathiasgmail
-                    </a>
-                  </div>
-                </div>
-              </div>
+            {/* Informations de contact */}
+            <div className="p-8 bg-white rounded-lg shadow-md">
+              <h3 className="mb-4 text-xl font-semibold text-gray-800">Coordonnées</h3>
+              <p className="mb-6 text-gray-600">N'hésitez pas à me contacter pour discuter de votre projet ou pour toute question.</p>
               
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold mb-4 text-gray-800 text-center">Donnez-nous votre avis</h3>
-                <FeedbackForm />
+              <div className="space-y-3">
+                <div className="flex items-center">
+                  <FaEnvelope className="mr-3 text-blue-600" />
+                  <span className="text-gray-700">elbamatondo12@gmail.com</span>
+                </div>
+                <div className="flex items-center">
+                  <FaLinkedin className="mr-3 text-blue-600" />
+                  <a href="https://www.linkedin.com/in/idriss-matondo-2652102b2/" target="_blank" rel="noopener noreferrer" className="text-gray-700 transition-colors hover:text-blue-600">
+                    Mon profil LinkedIn
+                  </a>
+                </div>
+                <div className="flex items-center">
+                  <FaGithub className="mr-3 text-gray-800" />
+                  <a href="https://github.com/mkmathiasgmail" target="_blank" rel="noopener noreferrer" className="text-gray-700 transition-colors hover:text-blue-600">
+                    github.com/mkmathiasgmail
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -371,6 +407,38 @@ const App = () => {
       </section>
 
       {/* Pied de page */}
+      {showContactOptions && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+            <h3 className="mb-4 text-xl font-semibold text-gray-800">Merci pour votre message</h3>
+            <p className="mb-6 text-gray-600">Choisissez comment vous souhaitez m'envoyer ce message&nbsp;:</p>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <button
+                type="button"
+                onClick={handleWhatsAppClick}
+                className="flex-1 px-4 py-2 font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
+              >
+                Envoyer via WhatsApp
+              </button>
+              <button
+                type="button"
+                onClick={handleEmailClick}
+                className="flex-1 px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+              >
+                Envoyer par email
+              </button>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowContactOptions(false)}
+              className="w-full px-4 py-2 mt-4 text-sm font-medium text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
+
       <footer className="footer">
         <div className="container">
           <p>&copy; {new Date().getFullYear()} Idriss Elba Kapata. Tous droits réservés.</p>
