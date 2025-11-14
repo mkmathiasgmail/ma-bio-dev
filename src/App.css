@@ -828,6 +828,67 @@ ul {
   font-weight: 500;
 }
 
+/* CV Modal (popup CV) */
+.cv-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 70;
+  padding: 20px;
+}
+
+.cv-modal-content {
+  position: relative;
+  max-width: 1100px;
+  width: 100%;
+  max-height: 90vh;
+  background: #020617;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px rgba(15, 23, 42, 0.9);
+  overflow: hidden;
+}
+
+.cv-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  color: #e5e7eb;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.cv-modal-body {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: auto;
+}
+
+.cv-page {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.7);
+}
+
+@media (max-width: 768px) {
+  .cv-modal-content {
+    padding: 16px;
+  }
+
+  .cv-modal-body {
+    flex-direction: column;
+  }
+}
+
 @media (max-width: 768px) {
   .project-modal-content {
     grid-template-columns: 1fr;

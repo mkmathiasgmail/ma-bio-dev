@@ -19,7 +19,9 @@ const App = () => {
   const [showContactOptions, setShowContactOptions] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [hasChosenChannel, setHasChosenChannel] = useState(false);
+
   const [preparedMessage, setPreparedMessage] = useState({ whatsapp: '', emailSubject: '', emailBody: '' });
+
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
