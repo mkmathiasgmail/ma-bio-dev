@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaHtml5, FaJs, FaReact, FaNodeJs, FaDatabase, FaGitAlt } from 'react-icons/fa';
 import './App.css';
-import profileImage from './assets/449188700_1241909323445078_6589457566887089535_n.jpg';
+import profileImage from './assets/IMG-20240919-WA0086_1.jpg';
 import eyanoImage from './assets/eyano.png';
 import mergeConstructImage from './assets/merge.png';
 
