@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaHtml5, FaJs, FaReact, FaNodeJs, FaDatabase, FaGitAlt, FaDesktop, FaServer, FaMobileAlt } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaHtml5, FaJs, FaReact, FaNodeJs, FaDatabase, FaGitAlt } from 'react-icons/fa';
 import './App.css';
 import profileImage from './assets/IMG-20240919-WA0086_1.jpg';
 import eyanoImage from './assets/eyano.png';
@@ -239,7 +239,6 @@ const App = () => {
             <a href="#accueil" onClick={() => scrollToSection('accueil')} className={activeSection === 'accueil' ? 'active' : ''}>Accueil</a>
             <a href="#apropos" onClick={() => scrollToSection('apropos')} className={activeSection === 'apropos' ? 'active' : ''}>À propos</a>
             <a href="#competences" onClick={() => scrollToSection('competences')} className={activeSection === 'competences' ? 'active' : ''}>Compétences</a>
-            <a href="#services" onClick={() => scrollToSection('services')} className={activeSection === 'services' ? 'active' : ''}>Services</a>
             <a href="#projets" onClick={() => scrollToSection('projets')} className={activeSection === 'projets' ? 'active' : ''}>Projets</a>
             <a href="#contact" onClick={() => scrollToSection('contact')} className={activeSection === 'contact' ? 'active' : ''}>Contact</a>
           </div>
@@ -305,36 +304,6 @@ const App = () => {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Section Services */}
-      <section id="services" className="services">
-        <div className="container">
-          <h2 className="section-title">Mes Services</h2>
-          <div className="services-grid">
-            <div className="service-card">
-              <div className="service-icon">
-                <FaDesktop />
-              </div>
-              <h3>Développement Web</h3>
-              <p>Création de sites web modernes et responsives avec les dernières technologies.</p>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">
-                <FaServer />
-              </div>
-              <h3>Développement Full Stack</h3>
-              <p>Solutions complètes du front-end au back-end avec bases de données robustes.</p>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">
-                <FaMobileAlt />
-              </div>
-              <h3>Applications Responsives</h3>
-              <p>Interfaces adaptées à tous les appareils pour une expérience utilisateur optimale.</p>
-            </div>
           </div>
         </div>
       </section>
@@ -565,7 +534,6 @@ const App = () => {
             <a href="#accueil">Accueil</a>
             <a href="#apropos">À propos</a>
             <a href="#competences">Compétences</a>
-            <a href="#services">Services</a>
             <a href="#projets">Projets</a>
             <a href="#contact">Contact</a>
           </div>
