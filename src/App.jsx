@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaHtml5, FaJs, FaReact, FaNodeJs, FaDatabase, FaGitAlt, FaDesktop, FaServer, FaMobileAlt } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaHtml5, FaJs, FaReact, FaNodeJs, FaDatabase, FaGitAlt, FaDesktop, FaServer, FaMobileAlt, FaPhp, FaBootstrap } from 'react-icons/fa';
+import { SiTailwindcss, SiLaravel } from 'react-icons/si';
 import './App.css';
 import profileImage from './assets/IMG-20240919-WA0086_1.jpg';
 import eyanoImage from './assets/eyano.png';
@@ -211,6 +212,30 @@ const App = () => {
       level: 80, 
       icon: <FaGitAlt className="skill-icon" />, 
       color: '#f14e32' 
+    },
+    { 
+      name: 'Laravel', 
+      level: 85, 
+      icon: <SiLaravel className="skill-icon" />, 
+      color: '#ff2d20' 
+    },
+    { 
+      name: 'PHP', 
+      level: 80, 
+      icon: <FaPhp className="skill-icon" />, 
+      color: '#777bb4' 
+    },
+    { 
+      name: 'Bootstrap', 
+      level: 85, 
+      icon: <FaBootstrap className="skill-icon" />, 
+      color: '#7952b3' 
+    },
+    { 
+      name: 'Tailwind CSS', 
+      level: 85, 
+      icon: <SiTailwindcss className="skill-icon" />, 
+      color: '#06b6d4' 
     }
   ];
 
