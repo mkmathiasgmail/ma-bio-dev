@@ -28,7 +28,7 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 3000); // Augmenté à 3s pour laisser l'animation CSS se terminer (2.5s + 0.5s fadeOut)
 
     return () => clearTimeout(timer);
   }, []);
@@ -246,7 +246,16 @@ const App = () => {
         role="status"
         aria-label="Chargement du portfolio de Idriss Elba"
       >
-        <div className="loading-initials">IE</div>
+        <div className="loading-content">
+          <div className="loading-logo-container">
+            <div className="loading-logo">IE</div>
+            <div className="loading-circle"></div>
+          </div>
+          <div className="loading-text">DÉVELOPPEUR FULL STACK</div>
+          <div className="loading-bar-container">
+            <div className="loading-bar"></div>
+          </div>
+        </div>
       </div>
     );
   }
