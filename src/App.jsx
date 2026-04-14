@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaHtml5, FaJs, FaReact, FaNodeJs, FaDatabase, FaGitAlt, FaDesktop, FaServer, FaMobileAlt, FaPhp, FaBootstrap } from 'react-icons/fa';
 import { SiTailwindcss, SiLaravel } from 'react-icons/si';
 import './App.css';
-import profileImage from './assets/IMG-20240919-WA0086_1.jpg';
+import profileImage from './assets/IMG-20240919-WA0007_2.jpg';
 import eyanoImage from './assets/eyano.png';
 import mergeConstructImage from './assets/merge.png';
 
@@ -32,6 +32,27 @@ const App = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  // Scroll-triggered animations
+  useEffect(() => {
+    if (isLoading) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    const elements = document.querySelectorAll('.section-title, .about-text, .skill-card-square, .service-card, .project-card, .contact-container');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [isLoading]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -246,7 +267,13 @@ const App = () => {
         role="status"
         aria-label="Chargement du portfolio de Idriss Elba"
       >
+        <div className="loading-ring"></div>
+        <div className="loading-ring loading-ring-2"></div>
         <div className="loading-initials">IE</div>
+        <div className="loading-tagline">Développeur Full Stack</div>
+        <div className="loading-bar-track">
+          <div className="loading-bar-fill"></div>
+        </div>
       </div>
     );
   }
@@ -281,13 +308,14 @@ const App = () => {
             <h1 className="hero-title">Bonjour, je suis <span>Idriss Elba Kapata</span></h1>
 
             <h2 className="hero-subtitle">Développeur Web Full Stack</h2>
-            <p>Je crée des expériences numériques exceptionnelles</p>
+            <p className="hero-description">Je crée des expériences numériques exceptionnelles</p>
             <div className="cta-buttons">
-              <a href="#projets" className="btn btn-primary">Voir mes projets</a>
-              <a href="#contact" className="btn btn-secondary">Me contacter</a>
+              <a href="#projets" className="btn btn-primary hero-btn-1">Voir mes projets</a>
+              <a href="#contact" className="btn btn-secondary hero-btn-2">Me contacter</a>
             </div>
           </div>
           <div className="hero-image">
+            <div className="hero-image-glow"></div>
             <img src={profileImage} alt="Profil" className="profile-image" />
           </div>
         </div>
