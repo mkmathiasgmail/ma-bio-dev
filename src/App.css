@@ -1540,3 +1540,57 @@ ul {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--secondary-color);
 }
+
+
+/* Finition éditoriale et accessibilité */
+.eyebrow {
+  display: inline-flex;
+  padding: 6px 12px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(37, 99, 235, .2);
+  border-radius: 999px;
+  color: var(--primary-color);
+  background: rgba(255, 255, 255, .7);
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.section-intro { max-width: 650px; margin: -38px auto 0; text-align: center; }
+.section-intro-light { color: rgba(255,255,255,.72); }
+.about-highlights { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.about-highlights span, .private-project { display: inline-flex; align-items: center; padding: 8px 12px; border-radius: 999px; background: #eff6ff; color: #1d4ed8; font-size: .85rem; font-weight: 600; }
+.project-impact { font-size: .92rem; color: #475569; }
+.project-impact strong { color: #1e3a8a; }
+.form-note { margin-top: 12px; color: #64748b; font-size: .82rem; }
+.contact-email { text-decoration: underline; text-underline-offset: 3px; }
+.project-modal-close { border: 0; background: transparent; color: #334155; font-size: 1.4rem; }
+.project-modal-close:hover { color: #dc2626; }
+.private-project { background: #fef3c7; color: #92400e; }
+
+@media (max-width: 768px) {
+  .hero { padding: 135px 0 70px; min-height: auto; }
+  .hero .container { flex-direction: column; text-align: center; }
+  .hero-content { max-width: 100%; }
+  .hero h1 { font-size: clamp(2.3rem, 10vw, 3.5rem); }
+  .hero p { margin-left: auto; margin-right: auto; }
+  .hero-image img { max-width: 300px; }
+  .cta-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .btn-secondary { margin-left: 0; }
+  .nav-links { gap: 18px; }
+  .section-title { font-size: 2rem; margin-bottom: 52px; }
+  .section-intro { margin-top: -30px; margin-bottom: 30px; }
+}
+
+@media (max-width: 600px) {
+  section { padding: 72px 0; }
+  .navbar { padding: 10px 0; }
+  .logo-text { display: none; }
+  .menu-btn { display: inline-flex; align-items: center; justify-content: center; border: 0; background: transparent; color: var(--text-color); }
+  .nav-links { position: absolute; top: 100%; left: 0; right: 0; display: none; flex-direction: column; gap: 0; padding: 12px 20px 18px; background: rgba(255,255,255,.98); box-shadow: 0 12px 22px rgba(15,23,42,.12); }
+  .nav-links.active { display: flex; }
+  .nav-links a { padding: 12px 0; }
+  .hero h1 { font-size: 2.45rem; }
+  .service-card { padding: 30px 22px; }
+  .project-info { padding: 20px; }
+}

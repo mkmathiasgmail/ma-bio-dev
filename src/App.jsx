@@ -3,8 +3,6 @@ import { FaGithub, FaLinkedin, FaEnvelope, FaBars, FaTimes, FaHtml5, FaJs, FaRea
 import { SiTailwindcss, SiLaravel } from 'react-icons/si';
 import './App.css';
 import profileImage from './assets/IMG-20240919-WA0086_1.jpg';
-import eyanoImage from './assets/eyano.png';
-import mergeConstructImage from './assets/merge.png';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,9 +26,20 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000); // Augmenté à 3s pour laisser l'animation CSS se terminer (2.5s + 0.5s fadeOut)
+    }, 900);
 
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setSelectedProject(null);
+        setShowContactOptions(false);
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
   }, []);
 
   const handleInputChange = (e) => {
@@ -119,60 +128,36 @@ const App = () => {
     }
   };
 
-  const projects = [
+const projects = [
     {
       id: 1,
-      title: 'Gestion des Résultats',
-      description: 'Application web pour la gestion et la publication des résultats académiques avec tableau de bord administratif et espace étudiant.',
-      technologies: ['Laravel', 'MySQL', 'Bootstrap', 'JavaScript'],
-      image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-      github: 'https://github.com/mkmathiasgmail/gestion-result',
-      demo: 'https://github.com/mkmathiasgmail/gestion-result'
+      title: 'Bonzenga App',
+      description: 'Site vitrine pour un salon de coiffure avec présentation des services, galerie et prise de rendez-vous.',
+      impact: 'Une présence en ligne claire pour faciliter la découverte des services et la prise de contact.',
+      technologies: ['HTML5', 'CSS3', 'JavaScript', 'jQuery'],
+      image: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1200&q=80',
+      github: 'https://github.com/mkmathiasgmail/bonzenga-app',
+      demo: null
     },
     {
       id: 2,
-      title: 'Bonzenga App',
-      description: 'Site vitrine pour un salon de coiffure avec prise de rendez-vous en ligne et galerie des réalisations.',
-      technologies: ['HTML5', 'CSS3', 'JavaScript', 'jQuery'],
-      image: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80',
-      github: 'https://github.com/mkmathiasgmail/bonzenga-app',
-      demo: 'https://github.com/mkmathiasgmail/bonzenga-app'
+      title: 'Gestion de Centre de Formation',
+      description: 'Application web de gestion des apprenants, formateurs, sessions, emplois du temps et évaluations.',
+      impact: 'Centralisation des opérations administratives dans un tableau de bord structuré.',
+      technologies: ['Laravel', 'React.js', 'MySQL', 'REST API', 'Bootstrap'],
+      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
+      github: 'https://github.com/mkmathiasgmail/gestion_centre_final',
+      demo: null
     },
     {
       id: 3,
-      title: 'Gestion de Centre de Formation',
-      description: 'Application web complète pour la gestion administrative des centres de formation. Gestion des apprenants, formateurs, sessions de formation, emplois du temps et évaluations avec tableau de bord administratif.',
-      technologies: ['Laravel', 'React.js', 'MySQL', 'REST API', 'Bootstrap'],
-      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80',
-      github: 'https://github.com/mkmathiasgmail/gestion_centre_final',
-      demo: 'https://github.com/mkmathiasgmail/gestion_centre_final#readme'
-    },
-    {
-      id: 4,
-      title: 'Gestion de Tâches',
-      description: 'Application de gestion de tâches avec tableau de bord et fonctionnalités de collaboration en équipe.',
-      technologies: ['Angular', 'Firebase', 'Material UI'],
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1415&q=80',
-      github: 'https://github.com/yourusername/task-manager',
-      demo: 'https://task-manager-demo.example.com'
-    },
-    {
-      id: 5,
-      title: 'Eyano App',
-      description: "Application d'évaluations pour des concours, permettant de gérer les questions, les sessions d'examen et les résultats des candidats.",
-      technologies: ['Laravel', 'Blade', 'PHP', 'MySQL'],
-      image: eyanoImage,
-      github: 'https://github.com/yourusername/eyano-app',
-      demo: 'https://github.com/yourusername/eyano-app'
-    },
-    {
-      id: 6,
-      title: 'Merge Construct',
-      description: 'Application de gestion des stocks et des ventes de matériaux de construction avec suivi des clients, des commandes et des paiements.',
-      technologies: ['Laravel', 'PHP', 'MySQL', 'Bootstrap'],
-      image: mergeConstructImage,
-      github: 'https://github.com/yourusername/gestion-materiaux-construction',
-      demo: 'https://github.com/yourusername/gestion-materiaux-construction'
+      title: 'Gestion des Résultats',
+      description: 'Application de publication de résultats académiques avec espace étudiant et tableau de bord administratif.',
+      impact: 'Projet réalisé dans un dépôt privé ; démonstration disponible sur demande.',
+      technologies: ['Laravel', 'MySQL', 'Bootstrap', 'JavaScript'],
+      image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=80',
+      github: null,
+      demo: null
     }
   ];
 
@@ -269,7 +254,7 @@ const App = () => {
             <span className="logo-initials">I E</span>
             <span className="logo-text">Idriss Elba</span>
           </div>
-          <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
+          <div id="site-navigation" className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
             <a href="#accueil" onClick={() => scrollToSection('accueil')} className={activeSection === 'accueil' ? 'active' : ''}>Accueil</a>
             <a href="#apropos" onClick={() => scrollToSection('apropos')} className={activeSection === 'apropos' ? 'active' : ''}>À propos</a>
             <a href="#competences" onClick={() => scrollToSection('competences')} className={activeSection === 'competences' ? 'active' : ''}>Compétences</a>
@@ -277,9 +262,9 @@ const App = () => {
             <a href="#projets" onClick={() => scrollToSection('projets')} className={activeSection === 'projets' ? 'active' : ''}>Projets</a>
             <a href="#contact" onClick={() => scrollToSection('contact')} className={activeSection === 'contact' ? 'active' : ''}>Contact</a>
           </div>
-          <div className="menu-btn" onClick={toggleMenu}>
+          <button className="menu-btn" type="button" aria-label={isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'} aria-expanded={isMenuOpen} aria-controls="site-navigation" onClick={toggleMenu}>
             {isMenuOpen ? <FaTimes /> : <FaBars />}
-          </div>
+          </button>
         </div>
       </nav>
 
@@ -287,17 +272,18 @@ const App = () => {
       <section id="accueil" className="hero">
         <div className="container">
           <div className="hero-content">
-            <h1 className="hero-title">Bonjour, je suis <span>Idriss Elba Kapata</span></h1>
+            <p className="eyebrow">Disponible pour de nouveaux projets</p>
+            <h1 className="hero-title">Je conçois des produits web <span>utiles et performants.</span></h1>
 
             <h2 className="hero-subtitle">Développeur Web Full Stack</h2>
-            <p>Je crée des expériences numériques exceptionnelles</p>
+            <p>Développeur Web Full Stack, je transforme des besoins métier en applications claires, robustes et responsives.</p>
             <div className="cta-buttons">
               <a href="#projets" className="btn btn-primary">Voir mes projets</a>
               <a href="#contact" className="btn btn-secondary">Me contacter</a>
             </div>
           </div>
           <div className="hero-image">
-            <img src={profileImage} alt="Profil" className="profile-image" />
+            <img src={profileImage} alt="Idriss Elba Kapata, développeur Web Full Stack" className="profile-image" fetchPriority="high" />
           </div>
         </div>
       </section>
@@ -308,12 +294,13 @@ const App = () => {
           <h2 className="section-title">À propos de moi</h2>
           <div className="about-content">
             <div className="about-text">
-              <p>Je suis un développeur passionné par la création d'applications web modernes et réactives. Avec une solide expérience en développement front-end et back-end, je m'efforce de créer des solutions élégantes et performantes.</p>
-              <p>Ma passion pour le code et mon souci du détail me permettent de transformer des idées en réalité numérique tout en respectant les meilleures pratiques de développement.</p>
+              <p>Je suis Idriss Elba Kapata, développeur Web Full Stack. Je conçois des interfaces modernes et des applications métier qui rendent les processus plus simples, plus fiables et plus faciles à utiliser.</p>
+              <p>Mon approche combine une attention particulière à l’expérience utilisateur, une architecture maintenable et une communication claire du besoin jusqu’à la mise en ligne.</p>
+              <div className="about-highlights"><span>Applications métier</span><span>Tableaux de bord</span><span>Interfaces responsives</span></div>
               <div className="social-links">
-                <a href="https://github.com/mkmathiasgmail" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
-                <a href="https://www.linkedin.com/in/idriss-matondo-2652102b2/" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
-                <a href="mailto:elbamatondo12@gmail.com"><FaEnvelope /></a>
+                <a href="https://github.com/mkmathiasgmail" target="_blank" rel="noopener noreferrer" aria-label="Profil GitHub"><FaGithub /></a>
+                <a href="https://www.linkedin.com/in/idriss-matondo-2652102b2/" target="_blank" rel="noopener noreferrer" aria-label="Profil LinkedIn"><FaLinkedin /></a>
+                <a href="mailto:elbamatondo12@gmail.com" aria-label="Envoyer un email"><FaEnvelope /></a>
               </div>
             </div>
           </div>
@@ -323,7 +310,8 @@ const App = () => {
       {/* Section Compétences */}
       <section id="competences" className="skills">
         <div className="container">
-          <h2 className="section-title">Mes compétences</h2>
+          <h2 className="section-title">Compétences techniques</h2>
+          <p className="section-intro">Une stack choisie pour construire des expériences rapides, maintenables et adaptées aux usages réels.</p>
           <div className="skills-container">
             {skills.map((skill) => (
               <div 
@@ -346,7 +334,8 @@ const App = () => {
       {/* Section Services */}
       <section id="services" className="services">
         <div className="container">
-          <h2 className="section-title">Mes Services</h2>
+          <h2 className="section-title">Ce que je peux construire</h2>
+          <p className="section-intro section-intro-light">Des solutions concrètes, de la première idée jusqu’à la mise en production.</p>
           <div className="services-grid">
             <div className="service-card">
               <div className="service-icon">
@@ -376,7 +365,8 @@ const App = () => {
       {/* Section Projets */}
       <section id="projets" className="projects">
         <div className="container">
-          <h2 className="section-title">Mes projets</h2>
+          <h2 className="section-title">Projets sélectionnés</h2>
+          <p className="section-intro">Quelques réalisations qui illustrent mon approche du produit, du design et du développement.</p>
           <div className="projects-grid">
             {projects.map((project) => (
               <div
@@ -393,11 +383,12 @@ const App = () => {
                 }}
               >
                 <div className="project-image">
-                  <img src={project.image} alt={project.title} />
+                  <img src={project.image} alt={project.title} loading="lazy" />
                 </div>
                 <div className="project-info">
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
+                  <p className="project-impact"><strong>Valeur :</strong> {project.impact}</p>
                   <div className="project-tech">
                     {project.technologies.map((tech) => (
                       <span key={tech}>{tech}</span>
@@ -411,23 +402,24 @@ const App = () => {
       </section>
 
       {selectedProject && (
-        <div className="project-modal" onClick={closeProjectModal}>
+        <div className="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" onClick={closeProjectModal}>
           <div className="project-modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="project-modal-close" onClick={closeProjectModal}>✕</button>
+            <button className="project-modal-close" type="button" aria-label="Fermer le projet" onClick={closeProjectModal}>✕</button>
             <div className="project-modal-image-wrapper">
               <img src={selectedProject.image} alt={selectedProject.title} />
             </div>
             <div className="project-modal-info">
-              <h3>{selectedProject.title}</h3>
+              <h3 id="project-modal-title">{selectedProject.title}</h3>
               <p>{selectedProject.description}</p>
+              <p className="project-impact"><strong>Valeur :</strong> {selectedProject.impact}</p>
               <div className="project-modal-tags">
                 {selectedProject.technologies.map((tech) => (
                   <span key={tech}>{tech}</span>
                 ))}
               </div>
               <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
-                <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="btn btn-primary">GitHub</a>
-                <a href={selectedProject.demo} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">Démo</a>
+                {selectedProject.github ? <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Voir le code</a> : <span className="private-project">Projet privé — démo sur demande</span>}
+                {selectedProject.demo && <a href={selectedProject.demo} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">Voir la démo</a>}
               </div>
             </div>
           </div>
@@ -511,9 +503,7 @@ const App = () => {
                 >
                   Envoyer le message
                 </button>
-                <p className="mt-2 text-sm text-gray-500">
-                  Tous les champs sont obligatoires afin que je puisse vous répondre.
-                </p>
+                <p className="form-note">Le formulaire prépare un message dans votre email ou WhatsApp ; aucune donnée n’est stockée sur ce site.</p>
               </form>
               {showSuccessMessage && (
                 <p className="mt-4 text-sm font-medium text-green-600">
@@ -530,7 +520,7 @@ const App = () => {
               <div className="space-y-3">
                 <div className="flex items-center">
                   <FaEnvelope className="mr-3 text-blue-600" />
-                  <span className="text-gray-700">elbamatondo12@gmail.com</span>
+                  <a className="text-gray-700 contact-email" href="mailto:elbamatondo12@gmail.com">elbamatondo12@gmail.com</a>
                 </div>
                 <div className="flex items-center">
                   <FaLinkedin className="mr-3 text-blue-600" />
